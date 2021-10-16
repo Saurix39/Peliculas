@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row" *ngIf="peliculas.length > 0">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h1 class="fw-bold mt-3">Peliculas por categorias</h1>
+            <table class="table table-success table-striped">
+                <tr>
+                    <th>imagen</th>
+                    <th>Titulo</th>
+                    <th>Descripcion</th>
+                    <th>Fecha de estreno</th>
+                    <th>Categoria</th>
+                </tr>
+                <tr *ngFor="let pelicula of peliculas">
+                    <td><img class="caratula" src="{{pelicula.imagen && pelicula.imagen!=null ? url+'/caratula/'+pelicula.imagen : 'https://icons.iconarchive.com/icons/softskin/series-folder/128/Folder-TV-Disney-icon.png'}}" alt="imagen de la pelicula"></td>
+                    <td>{{pelicula.titulo}}</td>
+                    <td>{{pelicula.descripcion}}</td>
+                    <td>{{pelicula.fecha_estreno}}</td>
+                    <td>{{pelicula.nombre}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

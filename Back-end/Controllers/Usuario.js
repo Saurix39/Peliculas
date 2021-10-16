@@ -81,7 +81,7 @@ var usuarioController={
                         }
                     })
                     .then((registro)=>{
-                        return res.status(400).send({
+                        return res.status(200).send({
                             status:"success",
                             code:200,
                             message:"Se ha actualizado el estado de la pelicula correctamente",
@@ -97,7 +97,7 @@ var usuarioController={
                     };
                     pelicula_usuario.create(registro)
                     .then((registro)=>{
-                        return res.status(400).send({
+                        return res.status(200).send({
                             status:"success",
                             code:200,
                             message:"Registro creado exitosamente",
@@ -146,7 +146,7 @@ var usuarioController={
                         }
                     })
                     .then((registro)=>{
-                        return res.status(400).send({
+                        return res.status(200).send({
                             status:"success",
                             code:200,
                             message:"Se ha actualizado la calificacion de la pelicula correctamente",
@@ -162,7 +162,7 @@ var usuarioController={
                     };
                     pelicula_usuario.create(registro)
                     .then((registro)=>{
-                        return res.status(400).send({
+                        return res.status(200).send({
                             status:"success",
                             code:200,
                             message:"Registro creado exitosamente",
@@ -188,7 +188,7 @@ var usuarioController={
             }
         })
         .then((lista)=>{
-            return res.status(400).send({
+            return res.status(200).send({
                 status:"success",
                 code:200,
                 message:"Lista de peliculas vistas obtenida con exito",

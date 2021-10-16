@@ -14,11 +14,11 @@ var peliculaController={
     save:function(req,res){
         try{
             var params = req.body;
+            var validate_fecha = !validator.isEmpty(params.fecha_estreno);
             var validate_titulo = !validator.isEmpty(params.titulo);
             var validate_descripcion = !validator.isEmpty(params.descripcion);
             var validate_duracion = !validator.isEmpty(params.duracion);
             var validate_trailer = !validator.isEmpty(params.trailer);
-            var validate_fecha = !validator.isEmpty(params.fecha_estreno);
         }catch(ex){
             return res.status(400).send({
                 status:"error",
@@ -64,18 +64,11 @@ var peliculaController={
             return res.status(400).send({
                 status:"error",
                 code:400,
-                message:"No se han recibido todos los parametros!!"
+                message:"Error en la validacion!!"
             });
         }
     },
     saveCaratula:function(req,res){
-        Pelicula.findOne({
-            where:{
-                id: req.params.id
-            }
-        })
-        .then((pelicula)=>{
-            if(pelicula && pelicula.id==req.params.id){
                 var file_name = "archivo no subido";
                 if(!req.files){
                     return res.status(400).send({
@@ -99,27 +92,27 @@ var peliculaController={
                         
                     })
                 }else{ 
-                    Pelicula.update({
-                        imagen:file_name,
-                    },{
-                        where:{
-                            id:req.params.id
-                        }
-                    })
-                    .then((pelicula)=>{
                         res.status(200).send({
                             status:"success",
-                            message:"Se ha actualizado la pelicula con exito",
-                            pelicula:pelicula
+                            message:"Se ha subido la imagen con exito",
+                            nombre:file_name
                         });
-                    });
                 } 
-            }else{
-                return res.status(400).send({
-                    status:"error",
-                    message:"La pelicula no existe"
-                });
+    },
+    updateImage:function(req,res){
+        Pelicula.update({
+            imagen:req.params.file_name,
+        },{
+            where:{
+                id:req.params.id
             }
+        })
+        .then((pelicula)=>{
+            res.status(200).send({
+                status:"success",
+                message:"Se ha actualizado la pelicula con exito",
+                pelicula:pelicula
+            });
         });
     },
     caratula: function(req,res){

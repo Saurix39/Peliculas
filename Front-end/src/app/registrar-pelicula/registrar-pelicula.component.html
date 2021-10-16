@@ -1,0 +1,79 @@
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="card info">
+                <h1 class="fw-bold text-center">Registra una pelicula</h1>
+                <mat-stepper orientation="vertical" linear="true">
+                    <mat-step editable="false">
+                        <ng-template matStepLabel>Ingresa los datos de la pelicula</ng-template>
+                        <form #registrarPelicula ="ngForm" (ngSubmit)="onSubmit(registrarPelicula)">
+                            <div class="mb-3">
+                              <label class="form-label">Titulo</label>
+                              <input type="text" class="form-control" name="titulo" #titulo="ngModel" [(ngModel)]="pelicula.titulo" required>
+                              <small *ngIf="titulo.invalid && titulo.touched" class="form-text invalid-feedback d-block">Titulo invalido</small>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Descripción</label>
+                              <textarea type="text" class="form-control" name="descripcion" #descripcion="ngModel" [(ngModel)]="pelicula.descripcion" required></textarea>
+                              <small *ngIf="descripcion.invalid && descripcion.touched" class="form-text invalid-feedback d-block">Descripción invalida</small>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Duración</label>
+                                <input type="text" class="form-control" name="duracion" #duracion="ngModel" [(ngModel)]="pelicula.duracion" required pattern="^[0-9]+">
+                                <small *ngIf="duracion.invalid && duracion.touched" class="form-text invalid-feedback d-block">Duración invalida</small>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Trailer</label>
+                                <input type="text" class="form-control" name="trailer" #trailer="ngModel" [(ngModel)]="pelicula.trailer" required>
+                                <small *ngIf="trailer.invalid && trailer.touched" class="form-text invalid-feedback d-block">Trailer invalido</small>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Fecha de estreno</label>
+                                <input type="date" class="form-control" name="fecha_estreno" #fecha_estreno="ngModel" [(ngModel)]="pelicula.fecha_estreno" required>
+                                <small *ngIf="fecha_estreno.invalid && fecha_estreno.touched" class="form-text invalid-feedback d-block">Fecha invalida</small>
+                            </div>
+                            <div *ngIf="status=='error'" class="alert alert-danger alert-dismissible fade show" role="alert">
+                                Ha ocurrido un error por favor intente de nuevo
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <div *ngIf="status=='success'" class="alert alert-success alert-dismissible fade show" role="alert">
+                                Se ha registrado la pelicula con exito, por favor continue
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <button type="submit" class="btn btn-primary form-control" [disabled]="registrarPelicula.invalid">Registrar</button>
+                          </form>
+                    </mat-step>
+                    <mat-step editable="false">
+                        <ng-template matStepLabel>Selecciona su caratula</ng-template>
+                        <form action="">
+                            <angular-file-uploader 
+                                [config]="afuConfig"
+                                (ApiResponse)="caratulaUpload($event)">
+                            </angular-file-uploader>
+                        </form>
+                        <div *ngIf="status=='success2'" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                            Se ha registrado la imagen con exito, por favor continue
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </mat-step>
+                    <mat-step editable="false">
+                        <ng-template matStepLabel>Encuentra sus categorias</ng-template>
+                        <select class="form-select" #selector (change)="selectChange(selector.value)">
+                            <option  value="">Escoja la categoria a relacionar</option>
+                            <option *ngFor="let categoria of categorias" value="{{categoria.id}}">{{categoria.nombre}}</option>
+                        </select>
+                    </mat-step>
+                    <mat-step editable="false">
+                        <ng-template matStepLabel>Finalización del proceso</ng-template>
+                        <h2 class="fw-bold text-center">Felicitaciones</h2>
+                        <h3 class=" text-center">Se ha terminado de registrar la pelicula</h3>
+                        <button type="button" class="btn btn-primary form-control" [routerLink]="['/usuario']">Volver al inicio</button>
+
+                    </mat-step>
+                </mat-stepper>
+            </div>
+        </div>
+    </div>
+</div>
+

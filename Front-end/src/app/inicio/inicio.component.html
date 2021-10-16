@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form class="d-flex" #buscar="ngForm" (ngSubmit)="onSubmit(buscar)">
+                <input class="form-control me-2" type="text" placeholder="Escribe lo que necesitas buscar" aria-label="Search" name="palabra" #palabra="ngModel" [(ngModel)]="busqueda.palabra" required>
+                <button class="btn btn-outline-success" type="submit">Search</button>
+                <div class="form-check check-cat">
+                    <input class="form-check-input" type="checkbox" value="" name="categoria" #categoria="ngModel" [(ngModel)]="busCategoria">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Buscar por categoria
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row" *ngIf="novedades.length && novedades.length > 0">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h1 class="fw-bold mt-3">Novedades</h1>
+            <table class="table table-success table-striped">
+                <tr>
+                    <th>imagen</th>
+                    <th>Titulo</th>
+                    <th>Descripcion</th>
+                    <th>Fecha de estreno</th>
+                    <th>Vista</th>
+                </tr>
+                <tr *ngFor="let pelicula of novedades">
+                    <td><img class="caratula" src="{{pelicula.imagen && pelicula.imagen!=null ? url+'/caratula/'+pelicula.imagen : 'https://icons.iconarchive.com/icons/softskin/series-folder/128/Folder-TV-Disney-icon.png'}}" alt="imagen de la pelicula"></td>
+                    <td>{{pelicula.titulo}}</td>
+                    <td>{{pelicula.descripcion}}</td>
+                    <td>{{pelicula.fecha_estreno}}</td>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row" *ngIf="peliculas.length && peliculas.length > 0">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h1 class="fw-bold mt-3">Todas nuestras peliculas</h1>
+            <table class="table table-success table-striped">
+                <tr>
+                    <th>imagen</th>
+                    <th>Titulo</th>
+                    <th>Descripcion</th>
+                    <th>Fecha de estreno</th>
+                    <th>Vista</th>
+                </tr>
+                <tr *ngFor="let pelicula of peliculas">
+                    <td><img class="caratula" src="{{pelicula.imagen && pelicula.imagen!=null ? url+'/caratula/'+pelicula.imagen : 'https://icons.iconarchive.com/icons/softskin/series-folder/128/Folder-TV-Disney-icon.png'}}" alt="imagen de la pelicula"></td>
+                    <td>{{pelicula.titulo}}</td>
+                    <td>{{pelicula.descripcion}}</td>
+                    <td>{{pelicula.fecha_estreno}}</td>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
